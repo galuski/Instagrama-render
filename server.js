@@ -4,6 +4,17 @@ import cors from 'cors'
 import express from 'express'
 import cookieParser from 'cookie-parser'
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
+
+// Now you can use __dirname in your code as before
+// For example:
+console.log(_dirname);
+
+
 const app = express()
 const server = http.createServer(app)
 
@@ -11,25 +22,33 @@ const server = http.createServer(app)
 app.use(cookieParser())
 app.use(express.json())
 
+// Serve static files with correct MIME types
+app.use(express.static(path.resolve(_dirname, 'public'), {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.js')) {
+            res.set('Content-Type', 'application/javascript');
+        }
+    },
+}));
 
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.resolve('public')))
-// } else {
-//     const corsOptions = {
-//         origin: [   'http://127.0.0.1:3000',
-//                     'http://localhost:3000',
-//                     'http://127.0.0.1:5173',
-//                     'http://localhost:5173',
-//                     'http://127.0.0.1:27017',
-//                     'http://localhost:27017',
-//                     'http://localhost:5174',
-//                     'http://localhost:5175'
-//                 ],
-//         credentials: true
-//     }
-//     app.use(cors())
-// }
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.resolve('public')))
+} else {
+    const corsOptions = {
+        origin: [   'http://127.0.0.1:3000',
+                    'http://localhost:3000',
+                    'http://127.0.0.1:5173',
+                    'http://localhost:5173',
+                    'http://127.0.0.1:27017',
+                    'http://localhost:27017',
+                    'http://localhost:5174',
+                    'http://localhost:5175'
+                ],
+        credentials: true
+    }
+    app.use(cors())
+}
 const corsConfig = {
     credentials: true,
     origin: true,
