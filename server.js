@@ -29,6 +29,7 @@ app.use(express.json())
 //     }
 //     app.use(cors())
 // }
+
 const corsConfig = {
     credentials: true,
     origin: true,
