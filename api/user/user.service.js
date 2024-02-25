@@ -108,7 +108,8 @@ async function update(user) {
         const userToSave = {
             _id: ObjectId(user._id), // Needed for the return object
             fullname: user.fullname,
-            imgUrl: user.imgUrl // Update imgUrl property
+            imgUrl: user.imgUrl,
+            username: user.username // Update imgUrl property
         };
 
         const collection = await dbService.getCollection('user');
