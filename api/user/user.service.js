@@ -113,6 +113,7 @@ async function update(user) {
 
         const collection = await dbService.getCollection('user');
         await collection.updateOne({ _id: userToSave._id }, { $set: { imgUrl: userToSave.imgUrl } }); // Update imgUrl in the database
+        console.log('userToSaveee', userToSave)
         return userToSave;
     } catch (err) {
         logger.error(`Cannot update user ${user._id}`, err);
