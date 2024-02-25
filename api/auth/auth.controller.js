@@ -35,6 +35,7 @@ export async function signup(req, res) {
 
 export async function logout(req, res){
     try {
+        req.sessionStorage.clear();
         res.clearCookie('loginToken')
         res.send({ msg: 'Logged out successfully' })
     } catch (err) {
