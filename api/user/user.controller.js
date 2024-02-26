@@ -72,7 +72,6 @@ export async function updateUser(req, res) {
   }
 }
 
-
 export async function addUser(req, res) {
     const {loggedinUser} = req
     try {
