@@ -104,21 +104,21 @@ async function remove(userId) {
 
 async function update(user) {
     try {
-        // peek only updatable properties
         const userToSave = {
-            _id: ObjectId(user._id), // needed for the returnd obj
+            _id: ObjectId(user._id),
             fullname: user.fullname,
             username: user.username,
-            imgUrl: user.imgUrl,
-        }
-        const collection = await dbService.getCollection('user')
-        await collection.updateOne({ _id: userToSave._id }, { $set: userToSave })
-        return userToSave
+            imgUrl: user.imgUrl
+        };
+        const collection = await dbService.getCollection('user');
+        await collection.updateOne({ _id: userToSave._id }, { $set: userToSave });
+        return userToSave;
     } catch (err) {
-        logger.error(`cannot update user ${user._id}`, err)
-        throw err
+        logger.error(`cannot update user ${user._id}`, err);
+        throw err;
     }
 }
+
 
 async function add(user) {
     try {

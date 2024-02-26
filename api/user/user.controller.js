@@ -62,16 +62,16 @@ export async function deleteUser(req, res) {
 }
 
 export async function updateUser(req, res) {
-    try {
-        const user = req.body
-        const savedUser = await userService.update(user)
-        console.log('backend savedUser:', savedUser)
-        res.send(savedUser)
-    } catch (err) {
-        logger.error('Failed to update user', err)
-        res.status(400).send({ err: 'Failed to update user' })
-    }
+  try {
+      const user = req.body;
+      const savedUser = await userService.update(user);
+      res.send(savedUser);
+  } catch (err) {
+      logger.error('Failed to update user', err);
+      res.status(400).send({ err: 'Failed to update user' });
+  }
 }
+
 
 export async function addUser(req, res) {
     const {loggedinUser} = req
